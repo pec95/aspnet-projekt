@@ -1,0 +1,19 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Potvrda registracije";
+}
+
+<style>
+    a:link, a:hover {
+        color: black;
+    }
+</style>
+
+<br />
+<h2>@ViewData["Title"]</h2>
+<br />
+<p>
+    <a id="confirm-link" href="@Model.EmailConfirmationUrl">Kliknite za potvrđivanje maila</a>
+</p>
+

@@ -1,0 +1,42 @@
+﻿@page
+@model ExternalLoginModel
+@{
+    ViewData["Title"] = "Registracija preko vanjskog računa";
+
+    List<SelectListItem> pi = (List<SelectListItem>)ViewData["pi"];
+}
+
+<h1>@ViewData["Title"]</h1>
+<h4 id="external-login-title">Povežite vaš @Model.ProviderDisplayName račun.</h4>
+<hr />
+
+<p id="external-login-description" class="text-info">
+    Potvrdili ste vaš <strong>@Model.ProviderDisplayName</strong> račun
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.UserName"></label>
+                <input asp-for="Input.UserName" class="form-control" />
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Najdraži klub</label>
+                <select asp-for="Input.KlubIdNajdrazi" asp-items="pi" class="form-control"></select>
+            </div>
+            <button type="submit" class="btn btn-primary">Registriraj</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
