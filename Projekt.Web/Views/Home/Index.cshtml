@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Početna";
+}
+
+<style>
+    h1 {
+        font-weight: 600;
+    }
+
+    a:link, a:visited, a:hover {
+        color: white;
+    }
+
+    .carousel-inner {
+        border-radius: 35px;
+    }
+
+    .carousel .carousel-item {
+        height: 500px;
+    }
+
+    .carousel-item .card {
+        position: absolute;
+        object-fit: cover;
+        top: 0;
+        left: 0;
+        min-height: 500px;
+    }
+
+    .card-body {
+        position: relative;
+        top: 147px;
+    }
+
+    .card-title {
+        font-size: 35px;
+        font-weight: bold;
+        color: lightgray;
+    }
+
+    .card-text {
+        font-size: 25px;
+        color: lightgray;
+    }
+
+    .card-link {
+        font-size: 30px;
+    }
+</style>
+
+<br />
+<h1 class="text-center">Dobrodošli u nogometnu ligu</h1>
+<br /><br />
+<div class="text-center" id="carousel">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="card d-block w-100" style="background: black;">
+                    <div class="card-body">
+                        <h2 class="card-title">Tablica</h2>
+                        <p class="card-text">Poredak momčadi nogometne lige</p>
+                        <a asp-controller="Momcad" asp-action="Tablica" class="card-link">Otvori</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card d-block w-100" style="background: black;">
+                    <div class="card-body">
+                        <p class="card-title">Popis momčadi</p>
+                        <p class="card-text">Popis svih momčadi u nogometnoj ligi</p>
+                        <a asp-controller="Momcad" asp-action="PopisMomcadi" class="card-link">Otvori</a>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="card d-block w-100" style="background: black;">
+                    <div class="card-body">
+                        <h2 class="card-title">Popis igrača</h2>
+                        <p class="card-text">Popis svih igrača u nogometnoj ligi</p>
+                        <a asp-controller="Igrac" asp-action="PopisIgraca" class="card-link">Otvori</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Prijašnji</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Sljedeći</span>
+        </a>
+    </div>
+</div>

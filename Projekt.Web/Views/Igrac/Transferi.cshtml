@@ -1,0 +1,57 @@
+﻿@model List<Transfer>
+
+@{
+    ViewData["Title"] = "Svi transferi";
+
+    int i = 1;
+}
+
+<br />
+<h3>Transferi</h3>
+<br />
+
+@if (Model.Count() == 0)
+{
+    <h5 class="text-center">Nema niti jednog transfera!</h5>
+}
+else
+{
+    <table class="table table-sm table-responsive-lg">
+        <thead class="thead-dark">
+            <tr class="text-center">
+                <th style="font-weight: normal;">#</th>
+                <th style="font-weight: normal;">Igrač</th>
+                <th style="font-weight: normal;">Matični klub</th>
+                <th style="font-weight: normal;">Odlazi u</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var transfer in Model)
+            {
+                <tr onmouseover="prelazakPreko(this)" onmouseout="maknuto(this)" class="text-center">
+                    <th>@(i++)</th>
+                    <td>@transfer.Igrac.Ime</td>
+                    <td>@transfer.MaticniKlub.ImeKluba</td>
+                    <td>@transfer.DolazniKlub.ImeKluba</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function prelazakPreko(redak) {
+            $(redak).css("background", "#1A3151");
+            $(redak).css("color", "white");
+        }
+
+        function maknuto(redak) {
+            $(redak).css("background", "white");
+            $(redak).css("color", "black");
+        }
+
+    </script>
+}

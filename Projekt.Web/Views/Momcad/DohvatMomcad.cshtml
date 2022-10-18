@@ -1,0 +1,98 @@
+﻿@model Klub
+
+@{
+    ViewData["Title"] = Model.ImeKluba;
+}
+
+<style>
+    th, h2 {
+        font-weight: 600;
+    }
+
+    table, th, td {
+        padding: 5px;
+    }
+
+    a:link, a:hover {
+        color: black;
+    }
+</style>
+
+<br />
+<h2>@Model.ImeKluba </h2>
+<br />
+<table>
+    <tr>
+        <td><img src="@ViewBag.Image" height="250" width="210" /></td>
+    </tr>
+    @if (Model.Trener.Equals("prazno"))
+    {
+        <tr>
+            <th>Trener:</th>
+            <td></td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <th>Trener:</th>
+            <td>@Model.Trener</td>
+        </tr>
+    }
+    <tr>
+        <th>Stadion:</th>
+        <td>@Model.Stadion </td>
+    </tr>
+    <tr>
+        <th>Godina osnutka:</th>
+        <td>@Model.GodinaOsnutka.</td>
+    </tr>
+    <tr>
+        <th>Broj trofeja:</th>
+        <td>@Model.BrojTrofeja</td>
+    </tr>
+    <tr>
+        <th>Igrači:</th>
+        <td>
+            @foreach (var igrac in Model.IgraciKluba)
+            {
+                <p><a asp-controller="Igrac" asp-action="DetaljiIgrac" asp-route-id="@igrac.Id">@igrac.Ime</a></p>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td id="izmjeni-sliku"></td>
+    </tr>
+    <tr>
+        <td id="izmjeni-klub"></td>
+    </tr>
+</table>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("IzmjeniKlub", "Momcad", new { id = Model.Id })",
+                method: "POST",
+                success: function (pw) {
+                    $("#izmjeni-klub").html(pw);
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("IzmjeniSliku", "Momcad", new { id = Model.Id })",
+                method: "POST",
+                success: function (pw) {
+                    $("#izmjeni-sliku").html(pw);
+                }
+            });
+        });
+
+    </script>
+}

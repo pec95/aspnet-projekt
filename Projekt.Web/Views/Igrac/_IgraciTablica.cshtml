@@ -1,0 +1,43 @@
+﻿@model List<Igrac>
+
+@{ 
+    int i = 1;
+}
+
+<style>
+    a:link, a:hover {
+        color: black;
+    }
+</style>
+
+<table class="table table-sm table-responsive-md">
+    <thead class="thead-dark">
+        <tr class="text-center">
+            <th style="font-weight: normal;">#</th>
+            <th style="font-weight: normal; cursor: pointer;" onclick="SortirajIme()">Igrač</th>
+            <th style="font-weight: normal; cursor: pointer;" onclick="SortirajStarost()">Starost</th>
+            <th style="font-weight: normal; cursor: pointer;" onclick="SortirajKlub()">Klub</th>
+            <th style="font-weight: normal; cursor: pointer;" onclick="SortirajVrijednost()">Vrijednost u milijunima</th>
+            <th style="font-weight: normal;">Detalji</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var igrac in Model)
+        {
+            <tr onmouseover="prelazakPreko(this)" onmouseout="maknuto(this)" class="text-center">
+                <th>@(i++)</th>
+                <td>@igrac.Ime</td>
+                <td>@igrac.Starost</td>
+                <td>
+                    <a asp-controller="Momcad" asp-action="DohvatMomcad" asp-route-idMomcadi="@igrac.KlubId">@igrac.Klub.ImeKluba</a>
+                </td>
+                <td>@igrac.VrijednostUMilijunima €</td>
+                <td class="text-left">
+                    <a asp-controller="Igrac" asp-action="DetaljiIgrac" asp-route-id=@igrac.Id>
+                        <button class="btn btn-outline-dark">Detalji o @igrac.Ime</button>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

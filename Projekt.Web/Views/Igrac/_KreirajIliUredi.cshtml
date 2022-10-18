@@ -1,0 +1,57 @@
+﻿@model Igrac
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label>Ime i prezime</label>
+        <input type="text" asp-for="Ime" class="form-control" />
+        <span asp-validation-for="Ime" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label>Pozicija</label>
+        <input type="text" asp-for="Pozicija" class="form-control"/>
+        <span asp-validation-for="Pozicija" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label>Država</label>
+        <input type="text" asp-for="Nacionalnost" class="form-control" />
+        <span asp-validation-for="Nacionalnost" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label>Datum rođenja</label>
+        <input id="datepicker" asp-for="DatumRodjenja" />
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label>Preferira nogu</label>
+        <select class="form-control" asp-for="PreferiranaNoga">
+            <option>L</option>
+            <option>D</option>
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label>Tržišna vrijednost (u milijunima)</label>
+        <input type="text" asp-for="VrijednostUMilijunima" class="form-control" />
+        <span asp-validation-for="VrijednostUMilijunima" class="text-danger"></span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label>Klub</label>
+        <select asp-for="KlubId" asp-items="ViewBag.klubovi" class="form-control"></select>
+    </div>
+</div>

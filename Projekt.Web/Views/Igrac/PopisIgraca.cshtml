@@ -1,0 +1,175 @@
+﻿@model IgracFilter
+
+@{
+    ViewData["Title"] = "Popis igrača";
+}
+
+<br />
+<h3 style="font-weight: 600;">Igrači</h3>
+<br />
+
+<style>
+    .form-control:focus {
+        outline: none !important;
+        border-color: #353839;
+        box-shadow: 0 0 8px #353839;
+    }
+</style>
+
+<form method="post" class="form-inline">
+    <div class="form-group">
+        <input type="search" name="ime" placeholder="Ime i prezime" class="form-control" />
+        <input type="search" name="klub" placeholder="Klub" class="form-control" style="margin-left: 5px;" />
+        <input type="search" name="vrijednost" placeholder="Vrijednost" class="form-control" style="margin-left: 5px;" />
+        <button type="button" onclick="filtriraj()" class="form-control btn btn-outline-dark" style="margin-left: 10px;">Pretraži</button>
+        <span id="novi-igrac"></span>
+    </div>
+</form>
+
+<br />
+<div id="tablica-container">
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("NoviIgrac", "Igrac")",
+                method: "POST",
+                success: function (pw) {
+                    $("#novi-igrac").html(pw);
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("PopisIgracaAjax", "Igrac")",
+                method: "POST",
+                success: function (pw) {
+                    $("#tablica-container").html(pw);
+                }
+            });
+        });
+
+        function filtriraj() {
+            var vrijednostiForme = $("form").serialize();
+
+            $.ajax({
+                method: "POST",
+                data: vrijednostiForme,
+                url: "@Url.Action("PopisIgracaAjax", "Igrac", "filterModel")",
+                success: function (pw) {
+                    $("#tablica-container").html(pw);
+                }
+            });
+        }
+
+        function prelazakPreko(redak) {
+            $(redak).css("background", "lightgray");
+        }
+
+        function maknuto(redak) {
+            $(redak).css("background", "white");
+        }
+
+        var kliknutoIme = false;
+        var kliknutoStarost = false;
+        var kliknutoKlub = false;
+        var kliknutoVrijednost = false;
+
+        function SortirajIme() {
+            if (kliknutoIme == false) {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajImeAsc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoIme = !kliknutoIme;
+            }
+            else {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajImeDesc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoIme = !kliknutoIme;
+            }
+        }
+
+        function SortirajStarost() {
+            if (kliknutoStarost == false) {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajStarostAsc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoStarost = !kliknutoStarost;
+            }
+            else {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajStarostDesc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoStarost = !kliknutoStarost;
+            }
+        }
+
+        function SortirajKlub() {
+            if (kliknutoKlub == false) {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajKlubAsc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoKlub = !kliknutoKlub;
+            }
+            else {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajKlubDesc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoKlub = !kliknutoKlub;
+            }
+        }
+
+        function SortirajVrijednost() {
+            if (kliknutoVrijednost == false) {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajVrijednostDesc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoVrijednost = !kliknutoVrijednost;
+            }
+            else {
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("SortirajVrijednostAsc", "Igrac")",
+                    success: function (pw) {
+                        $("#tablica-container").html(pw);
+                    }
+                });
+                kliknutoVrijednost = !kliknutoVrijednost;
+            }
+        }
+
+    </script>
+}

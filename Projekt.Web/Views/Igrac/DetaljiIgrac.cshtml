@@ -1,0 +1,107 @@
+﻿@model Igrac
+
+@{
+    ViewData["Title"] = Model.Ime;
+    var cultureTrenutno = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+}
+
+<style>
+    th, h2 {
+        font-weight: 600;
+    }
+
+    table, th, td {
+        padding: 5px;
+    }
+</style>
+
+<br />
+<h2>@Model.Ime </h2>
+<br />
+<table>
+    <tr>
+        <th>Klub:</th>
+        <td>@Model.Klub.ImeKluba</td>
+    </tr>
+    <tr>
+        <th>Pozicija:</th>
+        <td>@Model.Pozicija </td>
+    </tr>
+    <tr>
+        <th>Država/e:</th>
+        <td>@Model.Nacionalnost</td>
+    </tr>
+    <tr>
+        <th>Datum rođenja:</th>
+        @if (cultureTrenutno.Equals("en-US"))
+        {
+            <td>@Model.DatumRodjenja.Month/@Model.DatumRodjenja.Day/@Model.DatumRodjenja.Year (@Model.Starost godina)</td>
+        }
+        else
+        {
+            <td>@Model.DatumRodjenja.Day.@Model.DatumRodjenja.Month.@Model.DatumRodjenja.Year. (@Model.Starost godina)</td>
+        }
+
+    </tr>
+    <tr>
+        <th>Preferira:</th>
+        @if (Model.PreferiranaNoga.Equals('L'))
+        {
+            <td>Lijevu nogu</td>
+        }
+        else
+        {
+            <td>Desnu nogu</td>
+        }
+    </tr>
+    <tr>
+        <th>Vrijednost u milijunima:</th>
+        <td>@Model.VrijednostUMilijunima €</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td id="gumb-brisi"></td>
+    </tr>
+    <tr>
+        <td id="gumb-izmjeni"></td>
+    </tr>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("IzbrisiGumb", "Igrac", new { id = Model.Id })",
+                method: "POST",
+                success: function (pw) {
+                    $("#gumb-brisi").html(pw);
+                }
+            });
+        });
+
+        function potvrdaBrisanja() {
+            var potvrda = confirm("Želite li zaista izbrisati igrača?");
+
+            if (potvrda == true) {
+                $.ajax({
+                    url: "@Url.Action("IzbrisiIgraca", "Igrac", new { id = Model.Id })",
+                    method: "DELETE"
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "@Url.Action("IzmjeniGumb", "Igrac", new { id = Model.Id })",
+                method: "POST",
+                success: function (pw) {
+                    $("#gumb-izmjeni").html(pw);
+                }
+            });
+        });
+
+    </script>
+}

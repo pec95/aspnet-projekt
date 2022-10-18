@@ -1,0 +1,84 @@
+﻿@model List<Klub>
+
+@{
+    ViewData["Title"] = "Tablica";
+
+    int i = 1;
+}
+
+<style>
+    a:link, a:hover {
+        color: black;
+        text-decoration: none;
+    }
+
+    .sampion {
+        height: 20px;
+        width: 20px;
+        background: #28a745;
+    }
+
+    .ispada {
+        height: 20px;
+        width: 20px;
+        background: #ff726f;
+    }
+</style>
+
+<br />
+<h3 style="font-weight: 600;">Tablica nogometnih klubova</h3>
+<br />
+<table class="table table-md">
+    <thead class="thead-dark">
+        <tr>
+            <th style="font-weight: normal;" class="text-left">Pozicija</th>
+            <th style="font-weight: normal;" class="text-left">Klub</th>
+            <th style="font-weight: normal;" class="text-center">Gol razlika</th>
+            <th style="font-weight: normal;" class="text-center">Broj bodova</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var klub in Model)
+        {
+            if (i == 1)
+            {
+                <tr style="background: #28a745;">
+                    <th class="text-left">@(i++).</th>
+                    <td class="text-left"><a asp-controller="Momcad" asp-action="DohvatMomcad" asp-route-idMomcadi="@klub.Id">@klub.ImeKluba</a></td>
+                    <td class="text-center">@klub.GolRazlika</td>
+                    <td class="text-center">@klub.BrojBodova</td>
+                </tr>
+            }
+            else if (i == 10)
+            {
+                <tr style="background: #ff726f;">
+                    <th class="text-left">@(i).</th>
+                    <td class="text-left"><a asp-controller="Momcad" asp-action="DohvatMomcad" asp-route-idMomcadi="@klub.Id">@klub.ImeKluba</a></td>
+                    <td class="text-center">@klub.GolRazlika</td>
+                    <td class="text-center">@klub.BrojBodova</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th class="text-left">@(i++).</th>
+                    <td class="text-left"><a asp-controller="Momcad" asp-action="DohvatMomcad" asp-route-idMomcadi="@klub.Id">@klub.ImeKluba</a></td>
+                    <td class="text-center">@klub.GolRazlika</td>
+                    <td class="text-center">@klub.BrojBodova</td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
+<br />
+<table>
+    <tr>
+        <td><div class="sampion"></div></td>
+        <td>Osvajač lige</td>
+    </tr>
+    <tr>
+        <td><div class="ispada"></div></td>
+        <td >Ispada iz lige</td>
+    </tr>
+</table>

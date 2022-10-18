@@ -1,0 +1,40 @@
+﻿@model Klub
+
+@{
+    ViewData["Title"] = "Postavi sliku za " + Model.ImeKluba;
+}
+
+<style>
+    label, h4 {
+        font-weight: 600;
+    }
+</style>
+
+@if (ViewBag.uspjesnoSlika == true)
+{
+    <div class="alert alert-success text-center" role="alert">
+        Uspješno postavljena slika za @Model.ImeKluba!
+    </div>
+}
+else if(ViewBag.uspjesnoSlika == false)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        Niste uspjeli postaviti sliku!
+    </div>
+}
+
+<br />
+<h3>Postavi novu sliku za @Model.ImeKluba</h3>
+<br />
+<form method="post" enctype="multipart/form-data" asp-controller="Momcad" asp-action="PostaviSliku">
+    <div class="row">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="col-md-6 form-group">
+            <label>Upload slike</label>
+            <input type="file" id="fajl" name="fajl" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-dark">Postavi sliku</button>
+</form>

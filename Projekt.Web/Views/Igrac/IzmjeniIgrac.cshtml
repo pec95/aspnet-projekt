@@ -1,0 +1,47 @@
+﻿@model Igrac
+
+@{
+    ViewData["Title"] = "Kreiraj novog igrača";
+
+    var culture = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower().Replace(" ", "");
+}
+
+<style>
+    .form-control:focus {
+        outline: none !important;
+        border-color: #353839;
+        box-shadow: 0 0 8px #353839;
+    }
+</style>
+
+@if (ViewBag.igracUredi == true)
+{
+    <div class="alert alert-success text-center" role="alert">
+        Uspješno spremljene promjene za @Model.Ime!
+    </div>
+}
+else if (ViewBag.igracUredi == false)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        Promjene nisu spremljene!
+    </div>
+}
+
+<br />
+<h4 style="font-weight: 600;">Uredi @Model.Ime</h4>
+<br />
+<form method="post" asp-controller="Igrac" asp-action="IzmjeniIgrac">
+    <input type="hidden" asp-for="Id" />
+    <partial name="_KreirajIliUredi" model="@Model" />
+    <br />
+    <button type="submit" class="btn btn-dark">Spremi promjene</button>
+</form>
+
+@section Scripts {
+    <script type="text/javascript">
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: '@culture'
+    });
+    </script>
+}

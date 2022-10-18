@@ -1,0 +1,55 @@
+﻿@model Korisnik
+
+@{
+    ViewData["Title"] = "Podaci o korisniku " + Model.UserName;
+}
+
+<style>
+    th, h2 {
+        font-weight: 600;
+    }
+
+    table, th, td {
+        padding: 5px;
+    }
+
+    a:link, a:hover {
+        color: black;
+    }
+</style>
+
+<br />
+<h3>Podaci o korisniku</h3>
+<br/>
+<table>
+    <tr>
+        <th>Korisničko ime:</th>
+        <td>@Model.UserName </td>
+    </tr>
+    <tr>
+        <th>E-mail:</th>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <th>Potvrđen e-mail:</th>
+        @if (Model.EmailConfirmed == true)
+        {
+            <td>Potvrđen!</td>
+
+        }
+        else
+        {
+            <td>Nije</td>
+        }
+
+    </tr>
+    @if (Model.KlubIdNajdrazi != null)
+    {
+        <tr>
+            <th>Najdraži klub:</th>
+            <td>
+                <a asp-controller="Momcad" asp-action="DohvatMomcad" asp-route-idMomcadi="@Model.KlubIdNajdrazi">@Model.KlubNajdrazi.ImeKluba</a>
+            </td>
+        </tr>
+    }
+</table>

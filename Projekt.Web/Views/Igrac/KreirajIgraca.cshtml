@@ -1,0 +1,46 @@
+﻿@model Igrac
+
+@{
+    ViewData["Title"] = "Kreiraj novog igrača";
+
+    var culture = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower().Replace(" ", "");
+}
+
+<style>
+    .form-control:focus {
+        outline: none !important;
+        border-color: #353839;
+        box-shadow: 0 0 8px #353839;
+    }
+</style>
+
+@if (ViewBag.igracUspjesno == true)
+{
+    <div class="alert alert-success text-center" role="alert">
+        Uspješno kreiran igrač @Model.Ime!
+    </div>
+}
+else if (ViewBag.igracUspjesno == false)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        Niste uspjeli kreirati igrača!
+    </div>
+}
+
+<br />
+<h4 style="font-weight: 600;">Kreiraj igrača</h4>
+<br />
+<form method="post" asp-controller="Igrac" asp-action="KreirajIgraca">
+    <partial name="_KreirajIliUredi" model="@Model" />
+    <br />
+    <button type="submit" class="btn btn-dark">Kreiraj novog igrača</button>
+</form>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: '@culture'
+        });
+    </script>
+}

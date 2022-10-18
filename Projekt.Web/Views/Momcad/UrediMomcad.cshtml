@@ -1,0 +1,76 @@
+﻿@model Klub
+
+@{
+    ViewData["Title"] = "Uredi " + Model.ImeKluba;
+}
+
+<style>
+    .form-control:focus {
+        outline: none !important;
+        border-color: #353839;
+        box-shadow: 0 0 8px #353839;
+    }
+</style>
+
+@if (ViewBag.momcadUredi == true)
+{
+    <div class="alert alert-success text-center" role="alert">
+        Uspješno spremljene promjene za @Model.ImeKluba!
+    </div>
+}
+else if (ViewBag.momcadUredi == false)
+{
+    <div class="alert alert-danger text-center" role="alert">
+        Promjene nisu spremljene!
+    </div>
+}
+
+<br />
+<h4 style="font-weight: 600;">Uredi @Model.ImeKluba</h4>
+<br />
+<form method="post" asp-controller="Momcad" asp-action="UrediMomcad">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Naziv kluba</label>
+            <input type="text" asp-for="ImeKluba" class="form-control" />
+            <span asp-validation-for="ImeKluba" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Trener</label>
+            <input type="text" asp-for="Trener" class="form-control" />
+            <span asp-validation-for="Trener" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Stadion</label>
+            <input type="text" asp-for="Stadion" class="form-control" />
+            <span asp-validation-for="Stadion" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Broj trofeja</label>
+            <input type="text" asp-for="BrojTrofeja" class="form-control" />
+            <span asp-validation-for="BrojTrofeja" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Godina osnutka</label>
+            <input type="text" asp-for="GodinaOsnutka" class="form-control" />
+            <span asp-validation-for="GodinaOsnutka" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-dark">Spremi promjene</button>
+</form>

@@ -1,0 +1,40 @@
+﻿@model List<Klub>
+
+@{
+    ViewData["Title"] = "Popis momčadi";
+}
+
+<style>
+    .margine {
+        margin-bottom: 55px;
+        margin-right: 95px;
+    }
+
+    a:link, a:hover {
+        color: black;
+        text-decoration: none;
+    }
+</style>
+
+<br />
+<h3 style="font-weight: 600;">Momčadi</h3>
+<br />
+
+<div class="row">
+    @foreach (var klub in Model)
+    {
+        <div class="col-md-3 col-sm-12 margine">
+            <div class="card text-center" style="width: 18rem;">
+                <a asp-controller="Momcad" asp-action="DohvatMomcad" asp-route-idMomcadi="@klub.Id">
+                    <img src="@klub.Slika.NazivSlike" class="card-img-top" height="340">
+                </a>
+                <div class="card-body">
+                    <a asp-controller="Momcad" asp-action="DohvatMomcad" asp-route-idMomcadi="@klub.Id">
+                        <h5 class="card-title">@klub.ImeKluba</h5>
+                    </a>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
